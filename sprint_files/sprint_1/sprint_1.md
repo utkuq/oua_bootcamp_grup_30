@@ -4,11 +4,11 @@
 ### Flutter Grup 30
 
 ## Takım Elemanları & Rolleri
-**Ü. Şuara ALBAYRAK** Scrum Master, UX/UI Designer
-**Şevval ÖZKAYA** Product Owner, UX/UI Designer
-**Senanur KÖSE** Developer
-**Utku KARATAŞ** Developer
-**Sena ÖZİLBAN** Developer
+**Ü. Şuara ALBAYRAK** Scrum Master, UX/UI Designer <br>
+**Şevval ÖZKAYA** Product Owner, UX/UI Designer <br>
+**Senanur KÖSE** Developer <br>
+**Utku KARATAŞ** Developer <br>
+**Sena ÖZİLBAN** Developer <br>
 
 ## Ürün İsmi
 Henüz karar verilmedi.
