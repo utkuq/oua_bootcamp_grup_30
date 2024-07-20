@@ -37,4 +37,4 @@
 
 **Sprint review toplantısı katılımcıları:** Tüm ekip katılım sağladı.
 
-**Sprint Retrospective:** Sprint bitimi sonrası gerçekleştirilecek.
+**Sprint Retrospective:** Ekip daha erken toplanıp daha erken çalışmalara başlayabilirdi. İletişimimiz daha hızlı olabilirdi. UX/UI taslak çalışması bile olsa çalışılabilirdi.
