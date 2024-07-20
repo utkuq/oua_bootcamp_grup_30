@@ -1,32 +1,5 @@
 # Flutter Grup 30 Sprint 1
 
-## Takım İsmi
-### Flutter Grup 30
-
-## Takım Elemanları & Rolleri
-**Ü. Şuara ALBAYRAK** Scrum Master, UX/UI Designer <br>
-**Şevval ÖZKAYA** Product Owner, UX/UI Designer <br>
-**Senanur KÖSE** Developer <br>
-**Utku KARATAŞ** Developer <br>
-**Sena ÖZİLBAN** Developer <br>
-
-## Ürün İsmi
-Henüz karar verilmedi.
-
-## Product Backlog URL
-[Miro App Link](https://miro.com/app/board/uXjVK2fFDSE=/?share_link_id=901564641638)
-
-## Ürün Açıklaması
-Geliştirilmesi planlanan ürün, evcil hayvan sahiplerinin dostlarını güvenle takip etmesi ve diğer hayvanseverlerle iletişim halinde olmasını sağlamak üzere tasarlanacak. <br>
-Ürün özellikleri ve uygulama birincil ve ikincil fonksiyonları henüz tam netleştirilmemiştir. 
-
-## Hedef Kitle
-- Evcil hayvan sahipleri
-- Hayvan sahiplenmek isteyen kişiler
-- Gönüllü hayvanseverler
-- Hayvanlar için üretim yapan firmalar
-  
-## Sprint 1
 **Sprint içinde tamamlanması tahmin edilen puan:** 30 puan
 
 **Puan tamamlama mantığı:** Toplamda proje boyunca tamamlanması gereken 100 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde ilk sprint için 30 puanla başlaması gerektiğine karar verildi.
