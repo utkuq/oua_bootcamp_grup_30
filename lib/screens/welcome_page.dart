@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oua_bootcamp_grup_30/screens/login_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -89,11 +90,17 @@ class WelcomePage extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            Container(
+            SizedBox(
               width: 200,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ));
+                },
                 style: ElevatedButton.styleFrom(backgroundColor: orangeColor),
                 child: Text(
                   "Devam Et",
