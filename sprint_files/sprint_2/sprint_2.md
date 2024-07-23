@@ -15,10 +15,10 @@
 ![image_2](sprint_2_images/Picture2.png)
 ![image_3](sprint_2_images/Picture3.png)
 
-**Sprint board update:**
+**Sprint board update:**<br>
 ![image_4](sprint_2_images/Picture4.png)
 
-**Ürün Durumu:**
+**Ürün Durumu:**<br>
 ![image_5](sprint_2_images/Picture5.png)
 ![image_6](sprint_2_images/Picture6.png)
 ![image_7](sprint_2_images/Picture7.png)
