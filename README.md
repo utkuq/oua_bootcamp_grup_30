@@ -1,4 +1,16 @@
 # Oyun ve Uygulama Akademisi Flutter Grup 30
+
+## İçindekiler
+1. [Takım İsmi](https://github.com/utkuq/oua_bootcamp_grup_30?tab=readme-ov-file#tak%C4%B1m-i%CC%87smi-flutter-grup-30)
+2. [Takım Elemanları & Rolleri](https://github.com/utkuq/oua_bootcamp_grup_30?tab=readme-ov-file#tak%C4%B1m-elemanlar%C4%B1--rolleri)
+3. [Ürün İsmi](https://github.com/utkuq/oua_bootcamp_grup_30?tab=readme-ov-file#%C3%BCr%C3%BCn-i%CC%87smi)
+4. [Product Backlog URL](https://github.com/utkuq/oua_bootcamp_grup_30?tab=readme-ov-file#product-backlog-url)
+5. [Ürün Açıklaması](https://github.com/utkuq/oua_bootcamp_grup_30?tab=readme-ov-file#%C3%BCr%C3%BCn-a%C3%A7%C4%B1klamas%C4%B1)
+6. [Hedef Kitle](https://github.com/utkuq/oua_bootcamp_grup_30?tab=readme-ov-file#hedef-kitle)
+7. [Sprint Detayları](https://github.com/utkuq/oua_bootcamp_grup_30?tab=readme-ov-file#sprint-detaylar%C4%B1)
+8. [Ekran Görüntüleri](https://github.com/utkuq/oua_bootcamp_grup_30?tab=readme-ov-file#ekran-g%C3%B6r%C3%BCnt%C3%BCleri)
+
+
 ## Takım İsmi: Flutter Grup 30
 
 ## Takım Elemanları & Rolleri

@@ -2,6 +2,13 @@
 
 **Sprint içinde tamamlanması tahmin edilen puan:** 40 puan 
 
+**Puan tamamlama mantığı:** Toplamda proje boyunca tamamlanması gereken 100 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde ikinci sprint için 40 puanla devam edilmesi gerektiğine karar verildi.
+
+**Sprint başlatma toplantısı notları:**
+- Uygulama ana hatlarıyla konuşulduktan sonra birincil ve ikincil fonksiyonlar belirlendi, ürün detaylandırıldı.
+- Uygulama isminin belirlenmesine karar verildi.
+- Farklı kaynaklardan evcil hayvan içerikli uygulamaların konseptlerinin araştırılmasına karar verildi.
+
 **Daily scrum:** Toplantıların zamansal sebeplerden ötürü Whatsapp üzerinden yapılmasına karar verilmiştir. Daily scrum örneği tarafımızdan paylaşılmaktadır.
 
 ![image_1](sprint_2_images/Picture1.png)
