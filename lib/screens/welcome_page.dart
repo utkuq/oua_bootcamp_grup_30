@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:oua_bootcamp_grup_30/screens/login_page.dart';
+import 'package:oua_bootcamp_grup_30/screens/sign_in_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -25,18 +25,10 @@ class WelcomePage extends StatelessWidget {
                 clipBehavior: Clip.none, // Allows overflow
                 children: [
                   Align(
-                    alignment: Alignment.topLeft,
+                    alignment: Alignment.topCenter,
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        "PETPET",
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 36,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                        padding: const EdgeInsets.all(16.0),
+                        child: Image.asset("assets/images/logo.png")),
                   ),
                   Positioned(
                     bottom: -screenHeight /
@@ -98,7 +90,7 @@ class WelcomePage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
+                        builder: (context) => const SignInPage(),
                       ));
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: orangeColor),
