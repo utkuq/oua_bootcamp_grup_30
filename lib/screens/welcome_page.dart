@@ -27,7 +27,7 @@ class WelcomePage extends StatelessWidget {
                   Align(
                     alignment: Alignment.topCenter,
                     child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.only(top: 20.0),
                         child: Image.asset("assets/images/logo.png")),
                   ),
                   Positioned(

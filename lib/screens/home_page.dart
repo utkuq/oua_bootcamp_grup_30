@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           //Logo
           Padding(
-            padding: const EdgeInsets.only(top: 10.0),
+            padding: const EdgeInsets.only(top: 20.0),
             child: Align(
               alignment: Alignment.topCenter,
               child: Image.asset("assets/images/logo.png"),
