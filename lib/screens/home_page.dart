@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oua_bootcamp_grup_30/screens/pet_details_page.dart';
+import 'package:oua_bootcamp_grup_30/widgets/appbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,32 +38,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           // Custom AppBar
-          Row(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    _scaffoldKey.currentState?.openDrawer();
-                  },
-                ),
-              ),
-              Text(
-                "Hoş Geldin!",
-                style: GoogleFonts.poppins(
-                    fontSize: 20, fontWeight: FontWeight.w600),
-              ),
-              const Expanded(
-                  child: Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Icon(Icons.person),
-                ),
-              ))
-            ],
-          ),
+          CustomAppBar(scaffoldKey: _scaffoldKey, appBarTitle: "Hoş Geldin!"),
           // Save pet box
           Padding(
             padding: const EdgeInsets.all(50.0),
@@ -157,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                         "Muttiş", "5", "Dişi", "assets/images/test_2.png"),
                   ],
                 )),
-          )
+          ),
         ],
       ),
     ));
@@ -198,45 +175,56 @@ class _HomePageState extends State<HomePage> {
   // TODO: GÖRSELLERİN FIREBASE ÜZERİNDEN ÇEKİLMESİ GEREKİYOR
   Widget _buildAnimalCards(
       String name, String age, String gender, String imagePath) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 35),
-      child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
-          child: Column(
-            children: [
-              Image.asset(imagePath),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  name,
-                  textAlign: TextAlign.start,
-                  style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PetDetailsPage(
+                petName: name,
+              ),
+            ));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 35),
+        child: Container(
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: Padding(
+            padding:
+                const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
+            child: Column(
+              children: [
+                Image.asset(imagePath),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    name,
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-              Row(
-                children: [
-                  Text(
-                    "$age yaş",
-                    style: GoogleFonts.poppins(fontSize: 12),
-                  ),
-                  const SizedBox(
-                    width: 100,
-                  ),
-                  Text(
-                    gender,
-                    style: GoogleFonts.poppins(fontSize: 12),
-                  )
-                ],
-              )
-            ],
+                Row(
+                  children: [
+                    Text(
+                      "$age yaş",
+                      style: GoogleFonts.poppins(fontSize: 12),
+                    ),
+                    const SizedBox(
+                      width: 100,
+                    ),
+                    Text(
+                      gender,
+                      style: GoogleFonts.poppins(fontSize: 12),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
