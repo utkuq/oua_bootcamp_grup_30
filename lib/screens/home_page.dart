@@ -12,6 +12,8 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Color orangeColor = const Color.fromARGB(255, 254, 165, 1100);
   String? selectedCategory;
+  int _selectedIndex = 0; // Current index of the bottom navigation bar
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       ]),
       body: Column(
         children: [
-          //Logo
+          // Logo
           Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Align(
@@ -143,22 +145,94 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          //Pets
-
+          // Pets
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
-                    _buildAnimalCards(
-                        "Boncuk", "1,5", "Erkek", "assets/images/test_1.png"),
-                    _buildAnimalCards(
-                        "Muttiş", "5", "Dişi", "assets/images/test_2.png"),
-                  ],
+                  children: _buildFilteredAnimalCards(),
                 )),
           )
         ],
+      ),
+      // **Bottom Navigation Bar with Border Radius and Padding**
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 16.0), // Padding at the bottom
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(40),
+            bottom: Radius.circular(40), // Added bottom border radius
+          ),
+          child: BottomAppBar(
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  icon: Image.asset(
+                    'assets/icons/profile.png', // Custom icon path
+                    color: _selectedIndex == 0 ? Colors.orange : Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 0;
+                    });
+                    // Handle navigation
+                  },
+                ),
+                IconButton(
+                  icon: Image.asset(
+                    'assets/icons/pati.png', // Custom icon path
+                    color: _selectedIndex == 1 ? Colors.orange : Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 1;
+                    });
+                    // Handle navigation
+                  },
+                ),
+                IconButton(
+                  icon: Image.asset(
+                    'assets/icons/home.png', // Custom icon path
+                    color: _selectedIndex == 2 ? Colors.orange : Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 2;
+                    });
+                    // Handle navigation
+                  },
+                ),
+                IconButton(
+                  icon: Image.asset(
+                    'assets/icons/notifications.png', // Custom icon path
+                    color: _selectedIndex == 3 ? Colors.orange : Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 3;
+                    });
+                    // Handle navigation
+                  },
+                ),
+                IconButton(
+                  icon: Image.asset(
+                    'assets/icons/users.png', // Custom icon path
+                    color: _selectedIndex == 4 ? Colors.orange : Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 4;
+                    });
+                    // Handle navigation
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     ));
   }
@@ -195,51 +269,77 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // TODO: GÖRSELLERİN FIREBASE ÜZERİNDEN ÇEKİLMESİ GEREKİYOR
-  Widget _buildAnimalCards(
-      String name, String age, String gender, String imagePath) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 35),
-      child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
-          child: Column(
-            children: [
-              Image.asset(imagePath),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  name,
-                  textAlign: TextAlign.start,
-                  style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
+  List<Widget> _buildFilteredAnimalCards() {
+    // List of all animals
+    final animals = [
+      {
+        'name': 'Boncuk',
+        'age': '1,5',
+        'gender': 'Erkek',
+        'imagePath': 'assets/images/test_1.png',
+        'category': 'Kedi'
+      },
+      {
+        'name': 'Muttiş',
+        'age': '5',
+        'gender': 'Dişi',
+        'imagePath': 'assets/images/test_2.png',
+        'category': 'Köpek'
+      },
+      // Add more animals with categories here
+    ];
+
+    // Filter animals based on selected category
+    final filteredAnimals = selectedCategory == null
+        ? animals
+        : animals
+            .where((animal) => animal['category'] == selectedCategory)
+            .toList();
+
+    return filteredAnimals.map((animal) {
+      return Padding(
+        padding: const EdgeInsets.only(left: 35),
+        child: Container(
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: Padding(
+            padding:
+                const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
+            child: Column(
+              children: [
+                Image.asset(animal['imagePath']!),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    animal['name']!,
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-              Row(
-                children: [
-                  Text(
-                    "$age yaş",
-                    style: GoogleFonts.poppins(fontSize: 12),
-                  ),
-                  const SizedBox(
-                    width: 100,
-                  ),
-                  Text(
-                    gender,
-                    style: GoogleFonts.poppins(fontSize: 12),
-                  )
-                ],
-              )
-            ],
+                Row(
+                  children: [
+                    Text(
+                      "${animal['age']} yaş",
+                      style: GoogleFonts.poppins(fontSize: 12),
+                    ),
+                    const SizedBox(
+                      width: 100,
+                    ),
+                    Text(
+                      animal['gender']!,
+                      style: GoogleFonts.poppins(fontSize: 12),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    }).toList();
   }
 }
