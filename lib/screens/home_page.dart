@@ -332,6 +332,7 @@ class _HomePageState extends State<HomePage> {
                                 'İleri',
                                 style: GoogleFonts.poppins(),
                               ),
+
                             ),
                           ),
                           const SizedBox(height: 10),
