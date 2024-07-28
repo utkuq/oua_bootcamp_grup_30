@@ -87,6 +87,7 @@ class WelcomePage extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
+                  Navigator.pop(context);
                   Navigator.push(
                       context,
                       MaterialPageRoute(

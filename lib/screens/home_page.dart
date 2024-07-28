@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oua_bootcamp_grup_30/screens/pet_details_page.dart';
+import 'package:oua_bootcamp_grup_30/widgets/appbar.dart';
+import 'package:oua_bootcamp_grup_30/widgets/side_menu.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,13 +28,7 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
       backgroundColor: backgroundColor,
       key: _scaffoldKey,
-      drawer: const NavigationDrawer(children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [Text("test")],
-          ),
-        )
-      ]),
+      drawer: const SideMenu(),
       body: Column(
         children: [
           // Logo
@@ -43,32 +40,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           // Custom AppBar
-          Row(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    _scaffoldKey.currentState?.openDrawer();
-                  },
-                ),
-              ),
-              Text(
-                "Hoş Geldin!",
-                style: GoogleFonts.poppins(
-                    fontSize: 20, fontWeight: FontWeight.w600),
-              ),
-              const Expanded(
-                  child: Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Icon(Icons.person),
-                ),
-              ))
-            ],
-          ),
+          CustomAppBar(scaffoldKey: _scaffoldKey, appBarTitle: "Hoş Geldin!"),
           // Save pet box
           Padding(
             padding: const EdgeInsets.all(50.0),
@@ -356,7 +328,11 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 padding: EdgeInsets.symmetric(vertical: 15),
                               ),
-                              child: Text('İleri'),
+                              child: Text(
+                                'İleri',
+                                style: GoogleFonts.poppins(),
+                              ),
+
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -376,7 +352,10 @@ class _HomePageState extends State<HomePage> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
                             ),
-                            child: Text('Close'),
+                            child: Text(
+                              'İptal',
+                              style: GoogleFonts.poppins(),
+                            ),
                           ),
                         ],
                       ),
@@ -979,7 +958,7 @@ class _HomePageState extends State<HomePage> {
           decoration: BoxDecoration(
               color: selectedCategory == value
                   ? orangeColor.withOpacity(0.5)
-                  : Colors.transparent,
+                  : Colors.white,
               borderRadius: const BorderRadius.all(Radius.circular(10))),
           padding: const EdgeInsets.all(2.0),
           child: Padding(
@@ -1028,43 +1007,54 @@ class _HomePageState extends State<HomePage> {
     return filteredAnimals.map((animal) {
       return Padding(
         padding: const EdgeInsets.only(left: 35),
-        child: Container(
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          child: Padding(
-            padding:
-                const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
-            child: Column(
-              children: [
-                Image.asset(animal['imagePath']!),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    animal['name']!,
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PetDetailsPage(
+                    petName: animal['name']!,
+                  ),
+                ));
+          },
+          child: Container(
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 10, left: 10, right: 10, bottom: 10),
+              child: Column(
+                children: [
+                  Image.asset(animal['imagePath']!),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      animal['name']!,
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "${animal['age']} yaş",
-                      style: GoogleFonts.poppins(fontSize: 12),
-                    ),
-                    const SizedBox(
-                      width: 100,
-                    ),
-                    Text(
-                      animal['gender']!,
-                      style: GoogleFonts.poppins(fontSize: 12),
-                    )
-                  ],
-                )
-              ],
+                  Row(
+                    children: [
+                      Text(
+                        "${animal['age']} yaş",
+                        style: GoogleFonts.poppins(fontSize: 12),
+                      ),
+                      const SizedBox(
+                        width: 100,
+                      ),
+                      Text(
+                        animal['gender']!,
+                        style: GoogleFonts.poppins(fontSize: 12),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
