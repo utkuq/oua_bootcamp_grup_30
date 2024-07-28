@@ -402,10 +402,16 @@ class _HomePageState extends State<HomePage> {
             builder: (BuildContext context, StateSetter setState) {
               DateTime? _selectedDate;
               XFile? _imageFile;
-              TextEditingController _adController = TextEditingController();
-              TextEditingController _turController = TextEditingController();
-              TextEditingController _irkController = TextEditingController();
-              TextEditingController _rengiController = TextEditingController();
+
+              // Controllers for the text fields
+              final TextEditingController _adController =
+                  TextEditingController();
+              final TextEditingController _turController =
+                  TextEditingController();
+              final TextEditingController _irkController =
+                  TextEditingController();
+              final TextEditingController _rengiController =
+                  TextEditingController();
 
               Future<void> _pickImage() async {
                 final ImagePicker _picker = ImagePicker();
@@ -553,12 +559,16 @@ class _HomePageState extends State<HomePage> {
           child: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               DateTime? _chipDate;
-              TextEditingController _chipNoController = TextEditingController();
-              TextEditingController _chipLocationController =
+
+              // Controllers for the text fields
+              final TextEditingController _chipNumberController =
                   TextEditingController();
-              TextEditingController _doctorNameController =
+              final TextEditingController _chipLocationController =
                   TextEditingController();
-              TextEditingController _otherController = TextEditingController();
+              final TextEditingController _vetNameController =
+                  TextEditingController();
+              final TextEditingController _otherController =
+                  TextEditingController();
 
               return Container(
                 width: double.infinity,
@@ -589,14 +599,12 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          _buildTextField('Chip No', _chipNoController),
-                          const SizedBox(height: 10),
                           _buildTextField(
-                              'Chip Uygulama Yeri', _chipLocationController),
+                              'Mikroçip Numarası', _chipNumberController),
                           const SizedBox(height: 10),
                           _buildDateField(
                             context,
-                            'Chip Uygulama Tarihi',
+                            'Mikroçipin Takıldığı Tarih',
                             _chipDate,
                             (DateTime? date) {
                               setState(() {
@@ -606,9 +614,297 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 10),
                           _buildTextField(
-                              'Veteriner Hekim', _doctorNameController),
+                              'Mikroçipin Yeri', _chipLocationController),
+                          const SizedBox(height: 10),
+                          _buildTextField('Pasaportu Düzenleyen Hekimin Adı',
+                              _vetNameController),
                           const SizedBox(height: 10),
                           _buildTextField('Diğer', _otherController),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          _showAsiBilgileriModal(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: orangeColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          minimumSize: Size(double.infinity, 50),
+                        ),
+                        child: Text('İleri',
+                            style: GoogleFonts.poppins(fontSize: 18)),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildPhotoField(
+      BuildContext context, XFile? imageFile, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: orangeColor),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            imageFile == null
+                ? Icon(Icons.add_a_photo,
+                    size: 70,
+                    color: orangeColor) // Burada boyut ve renk ayarlandı
+                : Image.file(
+                    File(imageFile.path),
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+            const SizedBox(height: 10),
+            Text(
+              imageFile == null ? 'Fotoğraf Ekle' : 'Fotoğraf Yüklendi',
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showAsiBilgileriModal(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Dialog(
+          insetPadding: EdgeInsets.zero,
+          child: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              // Controllers for the text fields
+              final TextEditingController _kuduzController =
+                  TextEditingController();
+              final TextEditingController _ekinoksController =
+                  TextEditingController();
+              final TextEditingController _antiparazitController =
+                  TextEditingController();
+              final TextEditingController _asiController =
+                  TextEditingController();
+              final TextEditingController _muayeneController =
+                  TextEditingController();
+              final TextEditingController _digerController =
+                  TextEditingController();
+
+              return Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child:
+                                Image.asset('assets/images/petpet_cat_4.png'),
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Aşı Bilgileri',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: orangeColor,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          _buildTextField(
+                              'Kuduza Karşı Aşılama', _kuduzController),
+                          const SizedBox(height: 10),
+                          _buildTextField(
+                              'Ekinoks Tedavisi', _ekinoksController),
+                          const SizedBox(height: 10),
+                          _buildTextField('Diğer Antiparazitler Tedaviler',
+                              _antiparazitController),
+                          const SizedBox(height: 10),
+                          _buildTextField('Diğer Aşılamalar', _asiController),
+                          const SizedBox(height: 10),
+                          _buildTextField('Klinik Muayene', _muayeneController),
+                          const SizedBox(height: 10),
+                          _buildTextField('Diğer', _digerController),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          _showDigerAsilamalarModal(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: orangeColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          minimumSize: Size(double.infinity, 50),
+                        ),
+                        child: Text('İleri',
+                            style: GoogleFonts.poppins(fontSize: 18)),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildTextField(String label, TextEditingController controller) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDoseAmountField(String label, TextEditingController controller) {
+    return TextField(
+      controller: controller,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: 'Sayı Girin',
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: orangeColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: orangeColor),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 15),
+      ),
+    );
+  }
+
+  void _showDigerAsilamalarModal(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Dialog(
+          insetPadding: EdgeInsets.zero,
+          child: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              DateTime? _dose1Date;
+              DateTime? _dose2Date;
+              DateTime? _dose3Date;
+
+              // Controller for the dose amount field
+              final TextEditingController _doseAmountController =
+                  TextEditingController();
+
+              return Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child:
+                                Image.asset('assets/images/petpet_cat_4.png'),
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Diğer Aşılamalar',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: orangeColor,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          _buildDateField(
+                            context,
+                            '1. Doz Tarihi',
+                            _dose1Date,
+                            (DateTime? date) {
+                              setState(() {
+                                _dose1Date = date;
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          _buildDateField(
+                            context,
+                            '2. Doz Tarihi',
+                            _dose2Date,
+                            (DateTime? date) {
+                              setState(() {
+                                _dose2Date = date;
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          _buildDateField(
+                            context,
+                            '3. Doz Tarihi',
+                            _dose3Date,
+                            (DateTime? date) {
+                              setState(() {
+                                _dose3Date = date;
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          _buildDoseAmountField(
+                            'Doz Miktarı',
+                            _doseAmountController,
+                          ),
                         ],
                       ),
                     ),
@@ -627,7 +923,7 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.symmetric(vertical: 15),
                           minimumSize: Size(double.infinity, 50),
                         ),
-                        child: Text('Tamam',
+                        child: Text('Kaydet',
                             style: GoogleFonts.poppins(fontSize: 18)),
                       ),
                     ),
@@ -641,21 +937,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildTextField(String labelText, TextEditingController controller) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: labelText,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDateField(BuildContext context, String labelText,
-      DateTime? selectedDate, ValueChanged<DateTime?> onDateSelected) {
-    return GestureDetector(
+  Widget _buildDateField(BuildContext context, String label,
+      DateTime? selectedDate, Function(DateTime?) onDateSelected) {
+    return InkWell(
       onTap: () async {
         final DateTime? pickedDate = await showDatePicker(
           context: context,
@@ -663,41 +947,21 @@ class _HomePageState extends State<HomePage> {
           firstDate: DateTime(2000),
           lastDate: DateTime(2101),
         );
-        onDateSelected(pickedDate);
+        if (pickedDate != null && pickedDate != selectedDate) {
+          onDateSelected(pickedDate);
+        }
       },
-      child: AbsorbPointer(
-        child: TextField(
-          decoration: InputDecoration(
-            labelText: labelText,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          controller: TextEditingController(
-            text: selectedDate != null
-                ? DateFormat('yyyy-MM-dd').format(selectedDate)
-                : '',
+      child: InputDecorator(
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildPhotoField(
-      BuildContext context, XFile? imageFile, VoidCallback onPhotoTap) {
-    return GestureDetector(
-      onTap: onPhotoTap,
-      child: Container(
-        width: double.infinity,
-        height: 150,
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: orangeColor),
+        child: Text(
+          selectedDate == null ? '' : '${selectedDate.toLocal()}'.split(' ')[0],
+          style: TextStyle(fontSize: 16),
         ),
-        child: imageFile != null
-            ? Image.file(File(imageFile.path), fit: BoxFit.cover)
-            : Icon(Icons.add_a_photo, color: orangeColor, size: 50),
       ),
     );
   }
