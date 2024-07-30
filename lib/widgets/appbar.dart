@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oua_bootcamp_grup_30/screens/welcome_page.dart';
 
 class CustomAppBar extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -27,12 +29,28 @@ class CustomAppBar extends StatelessWidget {
           appBarTitle,
           style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600),
         ),
-        const Expanded(
+        Expanded(
             child: Padding(
-          padding: EdgeInsets.only(right: 20.0),
+          padding: const EdgeInsets.only(right: 20.0),
           child: Align(
             alignment: Alignment.centerRight,
-            child: Icon(Icons.person),
+            child: IconButton(
+              icon: const Icon(Icons.person),
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WelcomePage(),
+                    ));
+                final snackBar = SnackBar(
+                    content: Text(
+                  "Başarıyla çıkış yapıldı",
+                  style: GoogleFonts.poppins(),
+                ));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+            ),
           ),
         ))
       ],

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oua_bootcamp_grup_30/firebase/firestore_crud_operations.dart';
 import 'package:oua_bootcamp_grup_30/screens/pet_details_page.dart';
 import 'package:oua_bootcamp_grup_30/widgets/appbar.dart';
 import 'package:oua_bootcamp_grup_30/widgets/side_menu.dart';
@@ -21,6 +22,15 @@ class _HomePageState extends State<HomePage> {
       const Color.fromRGBO(245, 245, 245, 1); // Background color of the page
   String? selectedCategory;
   int _selectedIndex = 0; // Current index of the bottom navigation bar
+
+  // add a new animal page controllers
+  String? _selectedAnimal;
+  final TextEditingController _adController = TextEditingController();
+  final TextEditingController _turController = TextEditingController();
+  final TextEditingController _irkController = TextEditingController();
+  DateTime? _selectedDate;
+  final TextEditingController _rengiController = TextEditingController();
+  XFile? _imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +224,6 @@ class _HomePageState extends State<HomePage> {
 
   void _showFullScreenModal(BuildContext context) {
     // State for selected animal
-    String? _selectedAnimal;
 
     showDialog(
       context: context,
@@ -332,7 +341,6 @@ class _HomePageState extends State<HomePage> {
                                 'İleri',
                                 style: GoogleFonts.poppins(),
                               ),
-
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -379,19 +387,6 @@ class _HomePageState extends State<HomePage> {
           insetPadding: EdgeInsets.zero,
           child: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
-              DateTime? _selectedDate;
-              XFile? _imageFile;
-
-              // Controllers for the text fields
-              final TextEditingController _adController =
-                  TextEditingController();
-              final TextEditingController _turController =
-                  TextEditingController();
-              final TextEditingController _irkController =
-                  TextEditingController();
-              final TextEditingController _rengiController =
-                  TextEditingController();
-
               Future<void> _pickImage() async {
                 final ImagePicker _picker = ImagePicker();
                 final XFile? pickedFile = await _picker.pickImage(
@@ -437,7 +432,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 20),
                           Text(
-                            'Kedi Bilgileri',
+                            'Evcil Hayvan Bilgileri',
                             style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -502,8 +497,32 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.all(20.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
-                          _showKimlikBilgileriModal(context);
+                          if (_selectedAnimal != null &&
+                              _adController.text.isNotEmpty &&
+                              _turController.text.isNotEmpty &&
+                              _irkController.text.isNotEmpty &&
+                              _selectedDate != null &&
+                              _rengiController.text.isNotEmpty &&
+                              _imageFile != null) {
+                            Map<String, dynamic> fields = {
+                              "selected_animal": _selectedAnimal!,
+                              "pet_name": _adController.text,
+                              "pet_type": _turController.text,
+                              "pet_race": _irkController.text,
+                              "selected_date": _selectedDate.toString(),
+                              "pet_color": _rengiController.text,
+                              // TODO: ADD FUNCTIONALITY TO UPLOAD IMAGES TO THE FIREBASE
+                              //"pet_image": _imageFile,
+                            };
+                            UserModel userModel = UserModel(context: context);
+                            fields.forEach((field, value) => userModel
+                                .updateData(field: field, value: value));
+                          }
+                          //print(_adController.text);
+                          // if (_selectedAnimal != null && _adController.text != null && )
+
+                          //Navigator.of(context).pop();
+                          //_showKimlikBilgileriModal(context);
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
@@ -931,17 +950,18 @@ class _HomePageState extends State<HomePage> {
         }
       },
       child: InputDecorator(
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+          decoration: InputDecoration(
+            labelText: label,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
-        ),
-        child: Text(
-          selectedDate == null ? '' : '${selectedDate.toLocal()}'.split(' ')[0],
-          style: TextStyle(fontSize: 16),
-        ),
-      ),
+          child: selectedDate == null
+              ? null
+              : Text(
+                  '${selectedDate.toLocal()}'.split(' ')[0],
+                  style: GoogleFonts.poppins(fontSize: 16),
+                )),
     );
   }
 
