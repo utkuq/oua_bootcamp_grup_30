@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oua_bootcamp_grup_30/firebase/firestore_crud_operations.dart';
 import 'package:oua_bootcamp_grup_30/screens/home_page.dart';
 
 class DescribeYourselfPage extends StatefulWidget {
@@ -48,7 +49,10 @@ class _DescribeYourselfPageState extends State<DescribeYourselfPage> {
               width: 200,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  UserModel userModel = UserModel(context: context);
+                  await userModel.updateData(
+                      field: "owner_description", value: selectedDefinition);
                   Navigator.push(
                       context,
                       MaterialPageRoute(

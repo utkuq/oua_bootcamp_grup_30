@@ -1,17 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oua_bootcamp_grup_30/firebase/firebase_auth_services.dart';
 import 'package:oua_bootcamp_grup_30/screens/describe_yourself_page.dart';
 import 'package:oua_bootcamp_grup_30/screens/sign_up_page.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
+  bool _isSigningIn = false;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     Color orangeColor = const Color.fromARGB(255, 254, 165, 1100);
-    TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -54,7 +72,7 @@ class SignInPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
                 child: TextField(
-                  controller: email,
+                  controller: _emailController,
                   decoration: const InputDecoration(
                       hintText: "E-posta",
                       border: OutlineInputBorder(
@@ -64,7 +82,7 @@ class SignInPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40, bottom: 30),
                 child: TextField(
-                  controller: password,
+                  controller: _passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                       hintText: "Şifre",
@@ -76,20 +94,15 @@ class SignInPage extends StatelessWidget {
                 width: 200,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DescribeYourselfPage(),
-                        ));
-                  },
+                  onPressed: _signIn,
                   style: ElevatedButton.styleFrom(backgroundColor: orangeColor),
-                  child: Text(
-                    "Giriş Yap",
-                    style:
-                        GoogleFonts.poppins(color: Colors.white, fontSize: 16),
-                  ),
+                  child: _isSigningIn
+                      ? const CircularProgressIndicator()
+                      : Text(
+                          "Giriş Yap",
+                          style: GoogleFonts.poppins(
+                              color: Colors.white, fontSize: 16),
+                        ),
                 ),
               ),
               const SizedBox(
@@ -117,5 +130,29 @@ class SignInPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _signIn() async {
+    setState(() {
+      _isSigningIn = true;
+    });
+
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    User? user = await _auth.signInWithEmailAndPassword(
+      email,
+      password,
+      context,
+    );
+    setState(() {
+      _isSigningIn = false;
+    });
+    if (user != null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DescribeYourselfPage(),
+          ));
+    }
   }
 }

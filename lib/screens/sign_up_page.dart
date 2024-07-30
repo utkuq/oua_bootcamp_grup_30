@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oua_bootcamp_grup_30/firebase/firebase_auth_services.dart';
 import 'package:oua_bootcamp_grup_30/screens/describe_yourself_page.dart';
 import 'package:oua_bootcamp_grup_30/screens/sign_in_page.dart';
 
@@ -11,14 +13,28 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
+  bool _isSigningUp = false;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _passwordVerifyController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose(); // controllerlar hata verirse buranın yüzündendir
+    _emailController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _passwordVerifyController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     Color orangeColor = const Color.fromARGB(255, 254, 165, 1100);
-    TextEditingController email = TextEditingController();
-    TextEditingController username = TextEditingController();
-    TextEditingController password = TextEditingController();
-    TextEditingController passwordVerify = TextEditingController();
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -61,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
                 child: TextField(
-                  controller: email,
+                  controller: _emailController,
                   decoration: const InputDecoration(
                       hintText: "E-posta",
                       border: OutlineInputBorder(
@@ -73,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   horizontal: 40,
                 ),
                 child: TextField(
-                  controller: username,
+                  controller: _usernameController,
                   decoration: const InputDecoration(
                       hintText: "Kullanıcı Adı",
                       border: OutlineInputBorder(
@@ -84,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 padding: const EdgeInsets.only(
                     left: 40, right: 40, bottom: 30, top: 30),
                 child: TextField(
-                  controller: password,
+                  controller: _passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                       hintText: "Şifre",
@@ -95,7 +111,7 @@ class _SignUpPageState extends State<SignUpPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40, bottom: 30),
                 child: TextField(
-                  controller: passwordVerify,
+                  controller: _passwordVerifyController,
                   obscureText: true,
                   decoration: const InputDecoration(
                       hintText: "Şifre (Tekrar)",
@@ -107,19 +123,15 @@ class _SignUpPageState extends State<SignUpPage> {
                 width: 200,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DescribeYourselfPage(),
-                        ));
-                  },
+                  onPressed: _signUp,
                   style: ElevatedButton.styleFrom(backgroundColor: orangeColor),
-                  child: Text(
-                    "Kayıt Ol",
-                    style:
-                        GoogleFonts.poppins(color: Colors.white, fontSize: 16),
-                  ),
+                  child: _isSigningUp
+                      ? const CircularProgressIndicator()
+                      : Text(
+                          "Kayıt Ol",
+                          style: GoogleFonts.poppins(
+                              color: Colors.white, fontSize: 16),
+                        ),
                 ),
               ),
               const SizedBox(
@@ -147,5 +159,44 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  void _signUp() async {
+    setState(() {
+      _isSigningUp = true;
+    });
+    String username = _usernameController.text;
+    String email = _emailController.text;
+    if (_passwordController.text == _passwordVerifyController.text) {
+      String password = _passwordController.text;
+
+      User? user = await _auth.signUpWithEmailAndPassword(
+          email, password, username, context);
+
+      setState(() {
+        _isSigningUp = false;
+      });
+      if (user != null) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DescribeYourselfPage(),
+            ));
+      } else {
+        final snackBar = SnackBar(
+            content: Text(
+          "Bir hata oluştu. Lütfen yeniden deneyiniz",
+          style: GoogleFonts.poppins(),
+        ));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    } else {
+      final snackBar = SnackBar(
+          content: Text(
+        "Lütfen şifrelerin aynı olduğuna dikkat ederek yeniden deneyiniz",
+        style: GoogleFonts.poppins(),
+      ));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
