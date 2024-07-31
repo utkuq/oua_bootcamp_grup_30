@@ -7,6 +7,7 @@ import 'package:oua_bootcamp_grup_30/firebase/firestore_crud_operations.dart';
 import 'package:oua_bootcamp_grup_30/screens/pet_details_page.dart';
 import 'package:oua_bootcamp_grup_30/widgets/appbar.dart';
 import 'package:oua_bootcamp_grup_30/widgets/side_menu.dart';
+import '../screens/notifications.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -192,14 +193,19 @@ class _HomePageState extends State<HomePage> {
                 ),
                 IconButton(
                   icon: Image.asset(
-                    'assets/icons/notifications.png', // Custom icon path
+                    'assets/icons/notifications.png',
                     color: _selectedIndex == 3 ? orangeColor : Colors.grey,
                   ),
                   onPressed: () {
                     setState(() {
                       _selectedIndex = 3;
                     });
-                    // Handle navigation
+                    // Navigate to the NotificationsPage
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NotificationsPage()),
+                    );
                   },
                 ),
                 IconButton(
@@ -223,8 +229,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showFullScreenModal(BuildContext context) {
-    // State for selected animal
-
     showDialog(
       context: context,
       barrierDismissible:
@@ -287,8 +291,7 @@ class _HomePageState extends State<HomePage> {
                                     height: 50,
                                     decoration: BoxDecoration(
                                       color: _selectedAnimal == label
-                                          ? orangeColor
-                                          // Highlight selected animal
+                                          ? orangeColor // Highlight selected animal
                                           : Colors.white,
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(color: orangeColor),
@@ -418,126 +421,128 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child:
-                                Image.asset('assets/images/petpet_cat_4.png'),
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            'Evcil Hayvan Bilgileri',
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: orangeColor,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child:
+                                  Image.asset('assets/images/petpet_cat_4.png'),
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          _buildTextField('Ad', _adController),
-                          const SizedBox(height: 10),
-                          _buildTextField('Tür', _turController),
-                          const SizedBox(height: 10),
-                          _buildTextField('Irk', _irkController),
-                          const SizedBox(height: 10),
-                          _buildDateField(
-                            context,
-                            'Doğum Tarihi',
-                            _selectedDate,
-                            (DateTime? date) {
-                              setState(() {
-                                _selectedDate = date;
-                              });
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                          _buildTextField('Rengi', _rengiController),
-                          const SizedBox(height: 20),
-                          _buildPhotoField(
-                            context,
-                            _imageFile,
-                            () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Wrap(
-                                    children: <Widget>[
-                                      ListTile(
-                                        leading: Icon(Icons.camera_alt),
-                                        title: Text('Fotoğraf Çek'),
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                          _takePhoto();
-                                        },
-                                      ),
-                                      ListTile(
-                                        leading: Icon(Icons.photo_library),
-                                        title: Text('Galeriden Seç'),
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                          _pickImage();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_selectedAnimal != null &&
-                              _adController.text.isNotEmpty &&
-                              _turController.text.isNotEmpty &&
-                              _irkController.text.isNotEmpty &&
-                              _selectedDate != null &&
-                              _rengiController.text.isNotEmpty &&
-                              _imageFile != null) {
-                            Map<String, dynamic> fields = {
-                              "selected_animal": _selectedAnimal!,
-                              "pet_name": _adController.text,
-                              "pet_type": _turController.text,
-                              "pet_race": _irkController.text,
-                              "selected_date": _selectedDate.toString(),
-                              "pet_color": _rengiController.text,
-                              // TODO: ADD FUNCTIONALITY TO UPLOAD IMAGES TO THE FIREBASE
-                              //"pet_image": _imageFile,
-                            };
-                            UserModel userModel = UserModel(context: context);
-                            fields.forEach((field, value) => userModel
-                                .updateData(field: field, value: value));
-                          }
-                          //print(_adController.text);
-                          // if (_selectedAnimal != null && _adController.text != null && )
-
-                          //Navigator.of(context).pop();
-                          //_showKimlikBilgileriModal(context);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: orangeColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          minimumSize: Size(double.infinity, 50),
+                            const SizedBox(height: 20),
+                            Text(
+                              'Evcil Hayvan Bilgileri',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: orangeColor,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            _buildTextField('Ad', _adController),
+                            const SizedBox(height: 10),
+                            _buildTextField('Tür', _turController),
+                            const SizedBox(height: 10),
+                            _buildTextField('Irk', _irkController),
+                            const SizedBox(height: 10),
+                            _buildDateField(
+                              context,
+                              'Doğum Tarihi',
+                              _selectedDate,
+                              (DateTime? date) {
+                                setState(() {
+                                  _selectedDate = date;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                            _buildTextField('Rengi', _rengiController),
+                            const SizedBox(height: 20),
+                            _buildPhotoField(
+                              context,
+                              _imageFile,
+                              () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Wrap(
+                                      children: <Widget>[
+                                        ListTile(
+                                          leading: Icon(Icons.camera_alt),
+                                          title: Text('Fotoğraf Çek'),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            _takePhoto();
+                                          },
+                                        ),
+                                        ListTile(
+                                          leading: Icon(Icons.photo_library),
+                                          title: Text('Galeriden Seç'),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            _pickImage();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ],
                         ),
-                        child: Text('İleri',
-                            style: GoogleFonts.poppins(fontSize: 18)),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_selectedAnimal != null &&
+                                _adController.text.isNotEmpty &&
+                                _turController.text.isNotEmpty &&
+                                _irkController.text.isNotEmpty &&
+                                _selectedDate != null &&
+                                _rengiController.text.isNotEmpty &&
+                                _imageFile != null) {
+                              Map<String, dynamic> fields = {
+                                "selected_animal": _selectedAnimal!,
+                                "pet_name": _adController.text,
+                                "pet_type": _turController.text,
+                                "pet_race": _irkController.text,
+                                "selected_date": _selectedDate.toString(),
+                                "pet_color": _rengiController.text,
+                                // TODO: ADD FUNCTIONALITY TO UPLOAD IMAGES TO THE FIREBASE
+                                //"pet_image": _imageFile,
+                              };
+                              UserModel userModel = UserModel(context: context);
+                              fields.forEach((field, value) => userModel
+                                  .updateData(field: field, value: value));
+
+                              Navigator.of(context)
+                                  .pop(); // Close the current dialog
+                              _showKimlikBilgileriModal(
+                                  context); // Show the next modal
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: orangeColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            minimumSize: Size(double.infinity, 50),
+                          ),
+                          child: Text('İleri',
+                              style: GoogleFonts.poppins(fontSize: 18)),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
@@ -575,73 +580,76 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child:
-                                Image.asset('assets/images/petpet_cat_4.png'),
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            'Kimlik Bilgileri',
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: orangeColor,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child:
+                                  Image.asset('assets/images/petpet_cat_4.png'),
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          _buildTextField(
-                              'Mikroçip Numarası', _chipNumberController),
-                          const SizedBox(height: 10),
-                          _buildDateField(
-                            context,
-                            'Mikroçipin Takıldığı Tarih',
-                            _chipDate,
-                            (DateTime? date) {
-                              setState(() {
-                                _chipDate = date;
-                              });
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                          _buildTextField(
-                              'Mikroçipin Yeri', _chipLocationController),
-                          const SizedBox(height: 10),
-                          _buildTextField('Pasaportu Düzenleyen Hekimin Adı',
-                              _vetNameController),
-                          const SizedBox(height: 10),
-                          _buildTextField('Diğer', _otherController),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          _showAsiBilgileriModal(context);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: orangeColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          minimumSize: Size(double.infinity, 50),
+                            const SizedBox(height: 20),
+                            Text(
+                              'Kimlik Bilgileri',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: orangeColor,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            _buildTextField(
+                                'Mikroçip Numarası', _chipNumberController),
+                            const SizedBox(height: 10),
+                            _buildDateField(
+                              context,
+                              'Mikroçipin Takıldığı Tarih',
+                              _chipDate,
+                              (DateTime? date) {
+                                setState(() {
+                                  _chipDate = date;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                            _buildTextField(
+                                'Mikroçipin Yeri', _chipLocationController),
+                            const SizedBox(height: 10),
+                            _buildTextField('Pasaportu Düzenleyen Hekimin Adı',
+                                _vetNameController),
+                            const SizedBox(height: 10),
+                            _buildTextField('Diğer', _otherController),
+                          ],
                         ),
-                        child: Text('İleri',
-                            style: GoogleFonts.poppins(fontSize: 18)),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                            _showAsiBilgileriModal(
+                                context); // Show the next modal
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: orangeColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            minimumSize: Size(double.infinity, 50),
+                          ),
+                          child: Text('İleri',
+                              style: GoogleFonts.poppins(fontSize: 18)),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
