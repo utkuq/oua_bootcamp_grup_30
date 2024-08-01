@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:oua_bootcamp_grup_30/firebase/firebase_auth_services.dart';
 import 'package:oua_bootcamp_grup_30/screens/describe_yourself_page.dart';
 import 'package:oua_bootcamp_grup_30/screens/home_page.dart';
+import 'package:oua_bootcamp_grup_30/screens/page_holder.dart';
 import 'package:oua_bootcamp_grup_30/screens/sign_up_page.dart';
 
 class SignInPage extends StatefulWidget {
@@ -147,19 +148,20 @@ class _SignInPageState extends State<SignInPage> {
       context,
     );
     if (user != null) {
-      String userEmail = user.email!;
       final FirebaseFirestore _firestore = FirebaseFirestore.instance;
       DocumentSnapshot documentSnapshot =
           await _firestore.collection('users').doc(email).get();
-      if (documentSnapshot.exists && documentSnapshot['owner_description'] != null) {
+
+        Map<String, dynamic>? data = documentSnapshot.data() as Map<String, dynamic>?;
+      if (data != null && data.containsKey("owner_description") ) {
         setState(() {
           _isSigningIn = false;
         });
-
+        Navigator.pop(context);
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const HomePage(),
+              builder: (context) => const PageHolder(),
             ));
       }
 
@@ -167,6 +169,7 @@ class _SignInPageState extends State<SignInPage> {
         setState(() {
           _isSigningIn = false;
         });
+        Navigator.pop(context);
         Navigator.push(
             context,
             MaterialPageRoute(

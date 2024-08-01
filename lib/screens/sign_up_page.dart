@@ -177,6 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
         _isSigningUp = false;
       });
       if (user != null) {
+        Navigator.pop(context);
         Navigator.push(
             context,
             MaterialPageRoute(

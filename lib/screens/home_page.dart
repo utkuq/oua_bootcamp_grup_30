@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   Color backgroundColor =
       const Color.fromRGBO(245, 245, 245, 1); // Background color of the page
   String? selectedCategory;
-  int _selectedIndex = 0; // Current index of the bottom navigation bar
 
   // add a new animal page controllers
   String? _selectedAnimal;
@@ -202,90 +201,6 @@ class _HomePageState extends State<HomePage> {
                   )),
             )
           ],
-        ),
-      ),
-      // **Bottom Navigation Bar with Border Radius and Padding**
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 16.0),
-        // Padding at the bottom
-        child: ClipRRect(
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(40),
-            bottom: Radius.circular(40), // Added bottom border radius
-          ),
-          child: BottomAppBar(
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  icon: Image.asset(
-                    'assets/icons/profile.png', // Custom icon path
-                    color: _selectedIndex == 0 ? orangeColor : Colors.grey,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 0;
-                    });
-                    // Handle navigation
-                  },
-                ),
-                IconButton(
-                  icon: Image.asset(
-                    'assets/icons/pati.png', // Custom icon path
-                    color: _selectedIndex == 1 ? orangeColor : Colors.grey,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 1;
-                    });
-                    // Handle navigation
-                  },
-                ),
-                IconButton(
-                  icon: Image.asset(
-                    'assets/icons/home.png', // Custom icon path
-                    color: _selectedIndex == 2 ? orangeColor : Colors.grey,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 2;
-                    });
-                    // Handle navigation
-                  },
-                ),
-                IconButton(
-                  icon: Image.asset(
-                    'assets/icons/notifications.png',
-                    color: _selectedIndex == 3 ? orangeColor : Colors.grey,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 3;
-                    });
-                    // Navigate to the NotificationsPage
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const NotificationsPage()),
-                    );
-                  },
-                ),
-                IconButton(
-                  icon: Image.asset(
-                    'assets/icons/users.png', // Custom icon path
-                    color: _selectedIndex == 4 ? orangeColor : Colors.grey,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 4;
-                    });
-                    // Handle navigation
-                  },
-                ),
-              ],
-            ),
-          ),
         ),
       ),
     ));

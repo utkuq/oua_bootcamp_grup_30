@@ -4,6 +4,7 @@ class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _NotificationsPageState createState() => _NotificationsPageState();
 }
 
@@ -99,7 +100,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
       backgroundColor: const Color.fromRGBO(245, 245, 245, 1),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           children: [
             ..._notifications.asMap().entries.map((entry) {
               int index = entry.key;
@@ -109,8 +110,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 background: Container(
                   color: Colors.red,
                   alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: const Icon(Icons.delete, color: Colors.white),
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Icon(Icons.delete, color: Colors.white),
                 ),
                 onDismissed: (direction) {
                   _removeNotification(index);
@@ -126,23 +127,23 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   initiallyExpanded: notification.initiallyExpanded,
                 ),
               );
-            }),
+            }).toList(),
             if (_notifications.isNotEmpty) ...[
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               Center(
                 child: ElevatedButton.icon(
                   onPressed: _clearAll,
-                  icon: const Icon(Icons.delete, color: Colors.white),
-                  label: const Text('Tümünü Temizle'),
+                  icon: Icon(Icons.delete, color: Colors.white),
+                  label: Text('Tümünü Temizle'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor:
-                        const Color.fromARGB(255, 254, 165, 110), // Yazı rengi
+                    const Color.fromARGB(255, 254, 165, 110), // Yazı rengi
                   ),
                 ),
               ),
             ],
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             const Center(
               child: Text(
                 'Şimdilik bu kadar',
@@ -164,13 +165,13 @@ class NotificationCard extends StatefulWidget {
   final bool initiallyExpanded;
 
   const NotificationCard({
-    super.key,
+    Key? key,
     required this.title,
     required this.message,
     required this.details,
     required this.isEven,
     required this.initiallyExpanded,
-  });
+  }) : super(key: key);
 
   @override
   _NotificationCardState createState() => _NotificationCardState();
@@ -196,8 +197,8 @@ class _NotificationCardState extends State<NotificationCard> {
     var orangeColor = const Color.fromARGB(255, 254, 165, 110);
     var cardColor = widget.isEven
         ? Colors.white
-        : const Color(
-            0xFFFFDAB9); // Çift sıralı bildirimler için daha açık turuncu renk
+        : Color(
+        0xFFFFDAB9); // Çift sıralı bildirimler için daha açık turuncu renk
 
     return Card(
       elevation: 0,
@@ -207,7 +208,7 @@ class _NotificationCardState extends State<NotificationCard> {
       ),
       child: Column(
         crossAxisAlignment:
-            CrossAxisAlignment.start, // Yazı hizalamasını sola hizala
+        CrossAxisAlignment.start, // Yazı hizalamasını sola hizala
         children: [
           ListTile(
             leading: CircleAvatar(
@@ -233,16 +234,16 @@ class _NotificationCardState extends State<NotificationCard> {
           ),
           if (_isExpanded)
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment:
-                    CrossAxisAlignment.start, // İçerik hizalamasını sola hizala
+                CrossAxisAlignment.start, // İçerik hizalamasını sola hizala
                 children: [
                   Text(
                     widget.message,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8.0),
+                  SizedBox(height: 8.0),
                   Text(widget.details),
                 ],
               ),
