@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oua_bootcamp_grup_30/firebase/firebase_auth_services.dart';
 import 'package:oua_bootcamp_grup_30/screens/describe_yourself_page.dart';
+import 'package:oua_bootcamp_grup_30/screens/home_page.dart';
 import 'package:oua_bootcamp_grup_30/screens/sign_up_page.dart';
 
 class SignInPage extends StatefulWidget {
@@ -15,8 +17,8 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final FirebaseAuthService _auth = FirebaseAuthService();
   bool _isSigningIn = false;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -144,15 +146,33 @@ class _SignInPageState extends State<SignInPage> {
       password,
       context,
     );
-    setState(() {
-      _isSigningIn = false;
-    });
     if (user != null) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DescribeYourselfPage(),
-          ));
+      String userEmail = user.email!;
+      final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+      DocumentSnapshot documentSnapshot =
+          await _firestore.collection('users').doc(email).get();
+      if (documentSnapshot.exists && documentSnapshot['owner_description'] != null) {
+        setState(() {
+          _isSigningIn = false;
+        });
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ));
+      }
+
+      else {
+        setState(() {
+          _isSigningIn = false;
+        });
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DescribeYourselfPage(),
+            ));
+      }
     }
   }
 }

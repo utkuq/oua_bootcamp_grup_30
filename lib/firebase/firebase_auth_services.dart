@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:oua_bootcamp_grup_30/firebase/firestore_crud_operations.dart';
 
 class FirebaseAuthService {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<User?> signUpWithEmailAndPassword(
     String email,

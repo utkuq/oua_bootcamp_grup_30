@@ -12,6 +12,7 @@ class DescribeYourselfPage extends StatefulWidget {
 
 class _DescribeYourselfPageState extends State<DescribeYourselfPage> {
   String? selectedDefinition;
+
   @override
   Widget build(BuildContext context) {
     Color orangeColor = const Color.fromARGB(255, 254, 165, 1100);
@@ -52,7 +53,7 @@ class _DescribeYourselfPageState extends State<DescribeYourselfPage> {
                 onPressed: () async {
                   UserModel userModel = UserModel(context: context);
                   await userModel.updateData(
-                      field: "owner_description", value: selectedDefinition);
+                      field: "owner_description", value: selectedDefinition!);
                   Navigator.push(
                       context,
                       MaterialPageRoute(

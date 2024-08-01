@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class NotificationsPage extends StatefulWidget {
+  const NotificationsPage({super.key});
+
   @override
   _NotificationsPageState createState() => _NotificationsPageState();
 }
@@ -97,7 +99,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
       backgroundColor: const Color.fromRGBO(245, 245, 245, 1),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           children: [
             ..._notifications.asMap().entries.map((entry) {
               int index = entry.key;
@@ -107,8 +109,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 background: Container(
                   color: Colors.red,
                   alignment: Alignment.centerRight,
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Icon(Icons.delete, color: Colors.white),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: const Icon(Icons.delete, color: Colors.white),
                 ),
                 onDismissed: (direction) {
                   _removeNotification(index);
@@ -124,14 +126,14 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   initiallyExpanded: notification.initiallyExpanded,
                 ),
               );
-            }).toList(),
+            }),
             if (_notifications.isNotEmpty) ...[
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Center(
                 child: ElevatedButton.icon(
                   onPressed: _clearAll,
-                  icon: Icon(Icons.delete, color: Colors.white),
-                  label: Text('Tümünü Temizle'),
+                  icon: const Icon(Icons.delete, color: Colors.white),
+                  label: const Text('Tümünü Temizle'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor:
@@ -140,7 +142,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 ),
               ),
             ],
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             const Center(
               child: Text(
                 'Şimdilik bu kadar',
@@ -162,13 +164,13 @@ class NotificationCard extends StatefulWidget {
   final bool initiallyExpanded;
 
   const NotificationCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.message,
     required this.details,
     required this.isEven,
     required this.initiallyExpanded,
-  }) : super(key: key);
+  });
 
   @override
   _NotificationCardState createState() => _NotificationCardState();
@@ -194,7 +196,7 @@ class _NotificationCardState extends State<NotificationCard> {
     var orangeColor = const Color.fromARGB(255, 254, 165, 110);
     var cardColor = widget.isEven
         ? Colors.white
-        : Color(
+        : const Color(
             0xFFFFDAB9); // Çift sıralı bildirimler için daha açık turuncu renk
 
     return Card(
@@ -231,16 +233,16 @@ class _NotificationCardState extends State<NotificationCard> {
           ),
           if (_isExpanded)
             Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment:
                     CrossAxisAlignment.start, // İçerik hizalamasını sola hizala
                 children: [
                   Text(
                     widget.message,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Text(widget.details),
                 ],
               ),
