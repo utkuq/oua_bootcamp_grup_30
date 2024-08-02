@@ -56,10 +56,10 @@ Geliştirilmesi planlanan ürün, evcil hayvan sahiplerinin dostlarını güvenl
 - ### [Sprint 3](sprint_files/sprint_2/sprint_3.md)
 
 ## Ekran Görüntüleri
-|        Hoş Geldiniz Ekranı         |            Giriş Ekranı            |          Kayıt Ol Ekranı           |
-| :--------------------------------: | :--------------------------------: | :--------------------------------: |
-| ![screenshot_1](screenshots/1.png) | ![screenshot_2](screenshots/2.png) | ![screenshot_3](screenshots/3.png) |
+|                        Hoş Geldiniz Ekranı                         |                           Giriş Ekranı                            |                          Kayıt Ol Ekranı                          |
+| :----------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
+| <div style="width:500px"> ![screenshot_1](screenshots/1.png)</div> | <div style="width:500px">![screenshot_2](screenshots/2.png)</div> | <div style="width:500px">![screenshot_3](screenshots/3.png)</div> |
 
-|  Kendini Nasıl Tanımlarsın Ekranı  |          Ana Sayfa Ekranı          |
-| :--------------------------------: | :--------------------------------: |
-| ![screenshot_1](screenshots/4.png) | ![screenshot_2](screenshots/5.png) |
+|                  Kendini Nasıl Tanımlarsın Ekranı                   |                          Ana Sayfa Ekranı                          |
+| :-----------------------------------------------------------------: | :----------------------------------------------------------------: |
+| <div style="width:500px"> ![screenshot_1](screenshots/4.png) </div> | <div style="width:500px"> ![screenshot_2](screenshots/5.png)</div> |
