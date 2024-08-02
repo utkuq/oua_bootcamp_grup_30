@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:oua_bootcamp_grup_30/screens/welcome_page.dart';
 import 'package:oua_bootcamp_grup_30/widgets/appbar.dart';
 import 'package:oua_bootcamp_grup_30/widgets/side_menu.dart';
 
@@ -194,7 +196,15 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const WelcomePage(),
+                          ));
+                    },
                     style: ButtonStyle(
                         shape: WidgetStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),

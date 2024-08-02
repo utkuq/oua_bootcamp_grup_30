@@ -71,6 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
     Color backgroundColor =
         const Color.fromRGBO(245, 245, 245, 1); // Background color of the page
     return Scaffold(
+        key: _scaffoldKey,
         drawer: const SideMenu(),
         body: SafeArea(
           child: SingleChildScrollView(
