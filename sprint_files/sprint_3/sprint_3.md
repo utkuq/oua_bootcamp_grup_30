@@ -21,7 +21,7 @@
 **Sprint board update:** (Güncelleme devam edecektir. Son hali product backlogda bulunmaktadır.) <br>
 ![image_4](sprint_3_images/Picture4.png)
 
-**Ürün Durumu:** Ürünün başlangıç aşamasında sunmasını istediğimiz birincil ve ikincil fonksiyonlar eklenmiştir. Sunulan özellikler zamanla değişebilir ve kullanıcı deneyimine göre iyileştirilebilir. Ürünün son halinin video linki:
+**Ürün Durumu:** Ürünün başlangıç aşamasında sunmasını istediğimiz birincil ve ikincil fonksiyonlar eklenmiştir. Sunulan özellikler zamanla değişebilir ve kullanıcı deneyimine göre iyileştirilebilir. Ürünün son halinin video linki: https://youtu.be/rya28rthlsQ
 
 **Sprint Review:**
 - Uygulamanın temel hatlarına diğer sprintte karar verildiği üzere başlandı.
