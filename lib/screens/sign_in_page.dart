@@ -139,7 +139,7 @@ class _SignInPageState extends State<SignInPage> {
     setState(() {
       _isSigningIn = false;
     });
-
+    Navigator.pop(context);
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => const MyApp(),
     ));
