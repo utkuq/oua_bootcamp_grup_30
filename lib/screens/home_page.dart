@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oua_bootcamp_grup_30/firebase/firestore_crud_operations.dart';
+import 'package:oua_bootcamp_grup_30/screens/add_pet_page.dart';
 import 'package:oua_bootcamp_grup_30/screens/pet_details_page.dart';
 import 'package:oua_bootcamp_grup_30/widgets/appbar.dart';
 import 'package:oua_bootcamp_grup_30/widgets/side_menu.dart';
@@ -64,7 +65,6 @@ class _HomePageState extends State<HomePage> {
         antiparazitController.text.isNotEmpty &&
         asiController.text.isNotEmpty &&
         muayeneController.text.isNotEmpty) {
-
       UserModel userModel = UserModel(context: context);
       String imageURL = await userModel.uploadImageGetURL(_imageFile!);
 
@@ -76,15 +76,15 @@ class _HomePageState extends State<HomePage> {
         "selected_date": _selectedDate.toString(),
         "pet_color": _rengiController.text,
         "pet_image": imageURL,
-        "microchip_number" : chipNumberController.text,
+        "microchip_number": chipNumberController.text,
         "microchip_install_date": chipDate.toString(),
-        "microchip_location":chipLocationController.text,
-        "microchip_installed_vet":vetNameController.text,
-        "rabies":kuduzController.text,
-        "equinox":ekinoksController.text,
-        "anti-parasite":antiparazitController.text,
-        "vaccination":asiController.text,
-        "examination":muayeneController.text,
+        "microchip_location": chipLocationController.text,
+        "microchip_installed_vet": vetNameController.text,
+        "rabies": kuduzController.text,
+        "equinox": ekinoksController.text,
+        "anti-parasite": antiparazitController.text,
+        "vaccination": asiController.text,
+        "examination": muayeneController.text,
       };
       await userModel.addPet(fields: fields);
     }
@@ -114,7 +114,12 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(50.0),
               child: GestureDetector(
-                onTap: () => _showFullScreenModal(context),
+                // onTap: () => _showFullScreenModal(context),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AddPetPage(),
+                  ));
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       color: orangeColor,
