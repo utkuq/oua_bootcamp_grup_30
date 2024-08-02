@@ -6,8 +6,13 @@ import 'package:oua_bootcamp_grup_30/screens/welcome_page.dart';
 class CustomAppBar extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final String appBarTitle;
+  final String? profilePicURL;
+
   const CustomAppBar(
-      {super.key, required this.scaffoldKey, required this.appBarTitle});
+      {super.key,
+      required this.scaffoldKey,
+      required this.appBarTitle,
+      this.profilePicURL});
 
   @override
   Widget build(BuildContext context) {
@@ -29,30 +34,11 @@ class CustomAppBar extends StatelessWidget {
           appBarTitle,
           style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600),
         ),
-        Expanded(
+        const Expanded(
             child: Padding(
-          padding: const EdgeInsets.only(right: 20.0),
+          padding: EdgeInsets.only(right: 20.0),
           child: Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              icon: const Icon(Icons.person),
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WelcomePage(),
-                    ));
-                final snackBar = SnackBar(
-                    content: Text(
-                  "Başarıyla çıkış yapıldı",
-                  style: GoogleFonts.poppins(),
-                ));
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-            ),
-          ),
+              alignment: Alignment.centerRight, child: Icon(Icons.person)),
         ))
       ],
     );
