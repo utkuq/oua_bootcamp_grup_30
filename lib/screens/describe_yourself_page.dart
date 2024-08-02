@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oua_bootcamp_grup_30/firebase/firestore_crud_operations.dart';
 import 'package:oua_bootcamp_grup_30/screens/home_page.dart';
+import 'package:oua_bootcamp_grup_30/screens/page_holder.dart';
 
 class DescribeYourselfPage extends StatefulWidget {
   const DescribeYourselfPage({super.key});
@@ -12,6 +13,7 @@ class DescribeYourselfPage extends StatefulWidget {
 
 class _DescribeYourselfPageState extends State<DescribeYourselfPage> {
   String? selectedDefinition;
+
   @override
   Widget build(BuildContext context) {
     Color orangeColor = const Color.fromARGB(255, 254, 165, 1100);
@@ -52,11 +54,11 @@ class _DescribeYourselfPageState extends State<DescribeYourselfPage> {
                 onPressed: () async {
                   UserModel userModel = UserModel(context: context);
                   await userModel.updateData(
-                      field: "owner_description", value: selectedDefinition);
+                      field: "owner_description", value: selectedDefinition!);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const HomePage(),
+                        builder: (context) => const PageHolder(),
                       ));
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: orangeColor),

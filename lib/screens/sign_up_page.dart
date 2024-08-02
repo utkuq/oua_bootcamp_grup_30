@@ -16,10 +16,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final FirebaseAuthService _auth = FirebaseAuthService();
 
   bool _isSigningUp = false;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _passwordVerifyController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordVerifyController = TextEditingController();
 
   @override
   void dispose() {
@@ -177,10 +177,11 @@ class _SignUpPageState extends State<SignUpPage> {
         _isSigningUp = false;
       });
       if (user != null) {
+        Navigator.pop(context);
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DescribeYourselfPage(),
+              builder: (context) => const DescribeYourselfPage(),
             ));
       } else {
         final snackBar = SnackBar(

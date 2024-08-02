@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 import 'package:oua_bootcamp_grup_30/firebase_options.dart';
-import 'package:oua_bootcamp_grup_30/screens/home_page.dart';
+import 'package:oua_bootcamp_grup_30/screens/page_holder.dart';
+
 import 'package:oua_bootcamp_grup_30/screens/welcome_page.dart';
 
 void main() async {
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const HomePage();
+            return const PageHolder();
           } else {
             return const WelcomePage();
           }

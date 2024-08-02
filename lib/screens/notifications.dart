@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class NotificationsPage extends StatefulWidget {
+  const NotificationsPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _NotificationsPageState createState() => _NotificationsPageState();
 }
 
@@ -135,7 +138,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor:
-                        const Color.fromARGB(255, 254, 165, 110), // Yazı rengi
+                    const Color.fromARGB(255, 254, 165, 110), // Yazı rengi
                   ),
                 ),
               ),
@@ -195,7 +198,7 @@ class _NotificationCardState extends State<NotificationCard> {
     var cardColor = widget.isEven
         ? Colors.white
         : Color(
-            0xFFFFDAB9); // Çift sıralı bildirimler için daha açık turuncu renk
+        0xFFFFDAB9); // Çift sıralı bildirimler için daha açık turuncu renk
 
     return Card(
       elevation: 0,
@@ -205,7 +208,7 @@ class _NotificationCardState extends State<NotificationCard> {
       ),
       child: Column(
         crossAxisAlignment:
-            CrossAxisAlignment.start, // Yazı hizalamasını sola hizala
+        CrossAxisAlignment.start, // Yazı hizalamasını sola hizala
         children: [
           ListTile(
             leading: CircleAvatar(
@@ -234,7 +237,7 @@ class _NotificationCardState extends State<NotificationCard> {
               padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment:
-                    CrossAxisAlignment.start, // İçerik hizalamasını sola hizala
+                CrossAxisAlignment.start, // İçerik hizalamasını sola hizala
                 children: [
                   Text(
                     widget.message,

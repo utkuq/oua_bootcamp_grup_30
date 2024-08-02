@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oua_bootcamp_grup_30/firebase/firebase_auth_services.dart';
+import 'package:oua_bootcamp_grup_30/main.dart';
 import 'package:oua_bootcamp_grup_30/screens/describe_yourself_page.dart';
+import 'package:oua_bootcamp_grup_30/screens/home_page.dart';
+import 'package:oua_bootcamp_grup_30/screens/page_holder.dart';
 import 'package:oua_bootcamp_grup_30/screens/sign_up_page.dart';
 
 class SignInPage extends StatefulWidget {
@@ -15,15 +19,8 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final FirebaseAuthService _auth = FirebaseAuthService();
   bool _isSigningIn = false;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-  }
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -132,27 +129,26 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  void _signIn() async {
+  Future _signIn() async {
     setState(() {
       _isSigningIn = true;
     });
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text, password: _passwordController.text);
 
-    String email = _emailController.text;
-    String password = _passwordController.text;
-    User? user = await _auth.signInWithEmailAndPassword(
-      email,
-      password,
-      context,
-    );
     setState(() {
       _isSigningIn = false;
     });
-    if (user != null) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DescribeYourselfPage(),
-          ));
-    }
+
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const MyApp(),
+    ));
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

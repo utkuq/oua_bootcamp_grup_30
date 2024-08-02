@@ -16,9 +16,9 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
   bool passwordVisible1 = false;
   bool passwordVisible2 = false;
   bool passwordVisible3 = false;
-  TextEditingController _currentPassword = TextEditingController();
-  TextEditingController _newPassword = TextEditingController();
-  TextEditingController _newPasswordCheck = TextEditingController();
+  final TextEditingController _currentPassword = TextEditingController();
+  final TextEditingController _newPassword = TextEditingController();
+  final TextEditingController _newPasswordCheck = TextEditingController();
 
   @override
   void initState() {
@@ -30,14 +30,14 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     Color orangeColor = const Color.fromARGB(255, 254, 165, 1100);
-    TextEditingController _nameSurname = TextEditingController();
-    TextEditingController _email = TextEditingController();
-    TextEditingController _phoneNumber = TextEditingController();
-    TextEditingController _dateOfBirth = TextEditingController();
-    TextEditingController _city = TextEditingController();
-    XFile? _imageFile;
+    TextEditingController nameSurname = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController phoneNumber = TextEditingController();
+    TextEditingController dateOfBirth = TextEditingController();
+    TextEditingController city = TextEditingController();
+    XFile? imageFile;
 
     return SafeArea(
       child: Scaffold(
@@ -53,7 +53,7 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
                 ),
               ),
               CustomAppBar(
-                scaffoldKey: _scaffoldKey,
+                scaffoldKey: scaffoldKey,
                 appBarTitle: "",
               ),
               Align(
@@ -73,7 +73,7 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
                 padding:
                     const EdgeInsets.only(left: 20.0, right: 20.0, top: 10),
                 child: TextField(
-                  controller: _nameSurname,
+                  controller: nameSurname,
                   decoration: InputDecoration(
                       hintText: "İsim Soyisim",
                       hintStyle: GoogleFonts.poppins(
@@ -86,7 +86,7 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
                 padding:
                     const EdgeInsets.only(left: 20.0, right: 20.0, top: 10),
                 child: TextField(
-                  controller: _email,
+                  controller: email,
                   decoration: InputDecoration(
                       hintText: "E-mail",
                       hintStyle: GoogleFonts.poppins(
@@ -99,7 +99,7 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
                 padding:
                     const EdgeInsets.only(left: 20.0, right: 20.0, top: 10),
                 child: TextField(
-                  controller: _phoneNumber,
+                  controller: phoneNumber,
                   decoration: InputDecoration(
                       hintText: "Cep Telefonu",
                       hintStyle: GoogleFonts.poppins(
@@ -112,7 +112,7 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
                 padding:
                     const EdgeInsets.only(left: 20.0, right: 20.0, top: 10),
                 child: TextField(
-                  controller: _dateOfBirth,
+                  controller: dateOfBirth,
                   decoration: InputDecoration(
                       hintText: "Doğum Tarihi",
                       hintStyle: GoogleFonts.poppins(
@@ -125,7 +125,7 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
                 padding:
                     const EdgeInsets.only(left: 20.0, right: 20.0, top: 10),
                 child: TextField(
-                  controller: _city,
+                  controller: city,
                   decoration: InputDecoration(
                       hintText: "Şehir",
                       hintStyle: GoogleFonts.poppins(
@@ -152,7 +152,7 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
                                         title: const Text('Fotoğraf Çek'),
                                         onTap: () async {
                                           Navigator.pop(context);
-                                          await _takePhoto(_imageFile);
+                                          await _takePhoto(imageFile);
                                         },
                                       ),
                                       ListTile(
@@ -160,7 +160,7 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
                                         title: const Text('Galeriden Seç'),
                                         onTap: () async {
                                           Navigator.pop(context);
-                                          await _pickImage(_imageFile);
+                                          await _pickImage(imageFile);
                                         },
                                       ),
                                     ],
@@ -330,8 +330,8 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
   Future<void> _takePhoto(
     imageFile,
   ) async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? takenFile = await _picker.pickImage(
+    final ImagePicker picker = ImagePicker();
+    final XFile? takenFile = await picker.pickImage(
       source: ImageSource.camera,
     );
     if (takenFile != null) {
@@ -342,8 +342,8 @@ class _PersonalInformationsPageState extends State<PersonalInformationsPage> {
   }
 
   Future<void> _pickImage(imageFile) async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? pickedFile = await _picker.pickImage(
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
     if (pickedFile != null) {

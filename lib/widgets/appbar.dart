@@ -38,10 +38,11 @@ class CustomAppBar extends StatelessWidget {
               icon: const Icon(Icons.person),
               onPressed: () {
                 FirebaseAuth.instance.signOut();
+                Navigator.pop(context);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => WelcomePage(),
+                      builder: (context) => const WelcomePage(),
                     ));
                 final snackBar = SnackBar(
                     content: Text(
