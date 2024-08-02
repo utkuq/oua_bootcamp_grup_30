@@ -14,8 +14,8 @@ class PageHolder extends StatefulWidget {
 }
 
 class _PageHolderState extends State<PageHolder> {
-  int _selectedIndex = 2;
-  final PageController _pageController = PageController();
+  int _selectedIndex = 0;
+  late final PageController _pageController;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -24,8 +24,27 @@ class _PageHolderState extends State<PageHolder> {
     _pageController.jumpToPage(index);
   }
 
+
+  void _navigateToSecondPage() {
+    setState(() {
+      _selectedIndex = 2;
+    });
+    _pageController.jumpToPage(2);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _navigateToSecondPage();
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    //_navigateToSecondPage();
     return Scaffold(
       body: PageView(
         controller: _pageController,

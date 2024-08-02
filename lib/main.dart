@@ -7,15 +7,13 @@ import 'package:oua_bootcamp_grup_30/screens/page_holder.dart';
 
 import 'package:oua_bootcamp_grup_30/screens/welcome_page.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
-} 
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -44,5 +42,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

@@ -50,12 +50,26 @@ class UserModel {
       DocumentSnapshot documentSnapshot =
           await _firestore.collection('users').doc(email).get();
       if (documentSnapshot.exists) {
-        Map<String, dynamic> pets = documentSnapshot['pets'] ?? {};
-        String newPetKey =
-            'pet_${pets.length + 1}'; // Define a key for the new pet
-        pets[newPetKey] = fields;
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>? ?? {};
+        Map<String, dynamic> pets;
 
-        await _firestore.collection('users').doc(email).update({'pets': pets});
+        if (data.containsKey('pets')) {
+          pets = data['pets'] as Map<String, dynamic>;
+          String newPetKey =
+              'pet_${pets.length + 1}'; // Define a key for the new pet
+          pets[newPetKey] = fields;
+          await _firestore
+              .collection('users')
+              .doc(email)
+              .update({'pets': pets});
+        } else {
+          pets = {};
+          String newPetKey =
+              'pet_${pets.length + 1}'; // Define a key for the new pet
+          pets[newPetKey] = fields;
+          await _firestore.collection('users').doc(email).update({'pets': pets});
+        }
       }
     }
   }
