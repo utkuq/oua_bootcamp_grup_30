@@ -53,7 +53,7 @@ Geliştirilmesi planlanan ürün, evcil hayvan sahiplerinin dostlarını güvenl
 ## Sprint Detayları
 - ### [Sprint 1](sprint_files/sprint_1/sprint_1.md)
 - ### [Sprint 2](sprint_files/sprint_2/sprint_2.md)
-- ### [Sprint 3](sprint_files/sprint_2/sprint_3.md)
+- ### [Sprint 3](sprint_files/sprint_3/sprint_3.md)
 
 ## Ekran Görüntüleri
 |                        Hoş Geldiniz Ekranı                         |                           Giriş Ekranı                            |                          Kayıt Ol Ekranı                          |
